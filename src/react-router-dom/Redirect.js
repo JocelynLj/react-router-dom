@@ -10,7 +10,9 @@ export default class Redirect extends Component {
     render() {
         return (<Consumer>
             {state => {
-                console.log(state);
+                //重定向就是匹配不到路径后直接跳转到Redirect中的to路径
+                state.history.push(this.props.to);
+                return null;
             }}
         </Consumer>)
     }

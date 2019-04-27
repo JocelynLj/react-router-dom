@@ -9,10 +9,8 @@ export default class Route extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (<Consumer>
             {state => {
-                console.log(state);
                 //组件中的path和location.pathname进行匹配
                 //组件中的path（以'/home'为例）的正则，hash为/home和/home/123是均可以匹配到home
                 //hash为/home/123，也可以匹配到path为/home 和 /home/123的组件，此时则需要严格匹配以区分/home 和 /home/123的组件
