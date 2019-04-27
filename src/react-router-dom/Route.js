@@ -16,10 +16,21 @@ export default class Route extends Component {
                 //hash为/home/123，也可以匹配到path为/home 和 /home/123的组件，此时则需要严格匹配以区分/home 和 /home/123的组件
                 let pathname = state.location.pathname;
                 let { path, component: Component, exact = false } = this.props;
-                let reg = pathToRegExp(path, [], { end: exact });
+                let keys = [];
+                let reg = pathToRegExp(path, keys, { end: exact });
+                keys = keys.map(item => item.name);//['id']
                 let result = pathname.match(reg);
+                let [url, ...values] = result || [];//[1]
+                let props = {
+                    location: state.location,
+                    history: state.history,
+                    match: keys.reduce((obj, current, index) => {
+                        obj[current] = values[index];
+                        return obj;
+                    }, {})
+                }
                 if (result) {
-                    return <Component></Component>;
+                    return <Component {...props}></Component>;
                 }
                 return null;
 
